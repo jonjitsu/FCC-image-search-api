@@ -10,6 +10,11 @@
 - MongoDB
 
 * Services
-** flickr
-** picasa
 ** 500px
+** imgur
+** google using custom search
+Free tier: 100 search / day 
+** bing
+** flickr
+** Tineye
+** picasa

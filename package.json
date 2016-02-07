@@ -4,7 +4,7 @@
   "description": "Image search API microservice",
   "main": "dist/index.js",
   "scripts": {
-    "start": "nodemon lib/index.js --exec babel-node --presets es2015,stage-2",
+    "start": "nodemon src/index.js --exec babel-node --presets es2015,stage-2",
     "clean": "rm -rf dist",
     "build": "npm run clean && mkdir -p dist && babel lib -d dist",
     "serve": "node dist/index.js",
@@ -21,5 +21,8 @@
     "mocha": "^2.3.4",
     "nodemon": "^1.8.1",
     "superagent": "^1.7.1"
+  },
+  "dependencies": {
+    "500px": "^0.5.1"
   }
 }

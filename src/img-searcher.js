@@ -1,0 +1,46 @@
+import Api500px from '500px';
+
+const BASE_URL = 'https://500px.com';
+// converts photos array to results
+function formatResponse(photos) {
+    return photos
+        .map(photo=>{
+            return {
+                url: photo.image_url,
+                thumbnail: photo.image_url,
+                title: photo.name,
+                description: photo.description,
+                origin: BASE_URL + photo.url
+            };
+        })
+        .slice(0,10);
+}
+// module.exports = (config) => {
+export default (config, api) => {
+    const api500px = api || new Api500px(config['500px'].consumerKey)
+
+    return {
+        /**
+           SearchTerm:
+
+           Format:
+           [
+             {
+                url: 'url',
+                thumbnail: 'url',
+                description: 'text',
+                origin: 'url'
+             }
+           ]
+
+         */
+        searchTerm(term, options) {
+            return new Promise((resolve, reject)=>{
+                api500px.photos.searchByTerm(term, undefined, (error, results) => {
+                    if(error) reject(error);
+                    resolve(formatResponse(results.photos));
+                });
+            });
+        }
+    }
+};

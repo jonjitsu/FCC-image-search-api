@@ -20,7 +20,9 @@
     "babel-register": "^6.3.13",
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
+    "node-inspector": "^0.12.5",
     "nodemon": "^1.8.1",
+    "sinon": "^1.17.3",
     "superagent": "^1.7.1"
   },
   "dependencies": {

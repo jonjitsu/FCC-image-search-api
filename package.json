@@ -8,7 +8,8 @@
     "dev": "nodemon src/index.js --exec babel-node --presets es2015,stage-2",
     "clean": "rm -rf dist",
     "build": "npm run clean && mkdir -p dist && babel src -d dist",
-    "test": "mocha --compilers js:babel-register"
+    "test": "mocha --compilers js:babel-register",
+    "test:watch": "mocha --compilers js:babel-register --watch"
   },
   "author": "Jonathan Willis",
   "license": "",
@@ -23,6 +24,8 @@
     "superagent": "^1.7.1"
   },
   "dependencies": {
-    "500px": "^0.5.1"
+    "500px": "^0.5.1",
+    "configuror": "^0.1.2",
+    "express": "^4.13.4"
   }
 }

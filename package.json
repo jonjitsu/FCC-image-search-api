@@ -28,6 +28,7 @@
   "dependencies": {
     "500px": "^0.5.1",
     "configuror": "^0.1.2",
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "lodash": "^4.3.0"
   }
 }

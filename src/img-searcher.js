@@ -1,4 +1,5 @@
 import Api500px from '500px';
+import _ from 'lodash';
 
 const BASE_URL = 'https://500px.com';
 // converts photos array to results
@@ -35,8 +36,12 @@ export default (config, api) => {
 
          */
         searchTerm(term, options) {
+            const defaults = { rpp: 10, page:1 };
+            options = _.extend({}, defaults, options);
+
             return new Promise((resolve, reject)=>{
-                api500px.photos.searchByTerm(term, undefined, (error, results) => {
+                api500px.photos.searchByTerm(term, options, (error, results) => {
+                    console.log('SearchByTerm: returned')
                     if(error) reject(error);
                     resolve(formatResponse(results.photos));
                 });

@@ -1,28 +1,20 @@
 import express from 'express';
-import ImgSearcher from './img-searcher';
 
 module.exports = config => {
     let app = express();
 
     app
+    // Setup middlewares
+        .use(require('./middlewares/json-beautifier.js'))
         .get('/', (req, res) => {
-            res.send('root page');
-        })
-        .get(/^\/imagesearch\/(.*)/, (req, res)=>{
-            let term = req.params[0],
-                searcher = ImgSearcher(config);
+            res.send('@TODO put instructions here');
+        });
 
-            searcher
-                .searchTerm(term, { page: req.query.offset })
-                .then(results=>{
-                    res.json(results);
-                    // res.end();
-                },
-                error=>{
-                    res.send('Internal error @TODO fix this up');
-                    // res.end();
-                });
-          
-        })
+
+    // Setup api
+    require('./apis/status')(app);
+    require('./apis/img-searcher')(app, config);
+    require('./apis/notfound')(app);
+
     return app;
 };

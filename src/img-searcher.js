@@ -41,9 +41,12 @@ export default (config, api) => {
 
             return new Promise((resolve, reject)=>{
                 api500px.photos.searchByTerm(term, options, (error, results) => {
-                    console.log('SearchByTerm: returned')
+                    console.log('SearchByTerm: ' + JSON.stringify(results));
                     if(error) reject(error);
-                    resolve(formatResponse(results.photos));
+                    else {
+                        if( results && results.photos ) resolve(formatResponse(results.photos));
+                        else reject(new Error('Bad response.'));
+                    }
                 });
             });
         }

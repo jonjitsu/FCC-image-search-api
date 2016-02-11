@@ -9,6 +9,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 module.exports = function (config) {
     var app = (0, _express2.default)();
 
+    if (config.debug) console.log(JSON.stringify(config, process.env));
+
     app
     // Setup middlewares
     .use(require('./middlewares/json-beautifier.js')).get('/', function (req, res) {

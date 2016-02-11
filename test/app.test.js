@@ -1,12 +1,12 @@
-import { assert } from 'chai';
 import http from 'http';
 
-const is = assert.strictEqual,
-      de = assert.deepEqual,
+require('./helpers').globalize();
 
+const
       config = require('configuror')({env:'test'}),
       app = require('../src/app')(config),
       port = config.app.port;
+
 
 describe('app', ()=>{
     let server;

@@ -15,6 +15,10 @@ module.exports = (app, config) => {
                     res.send('Internal error @TODO fix this up');
                 });
           
+        })
+
+        .get('/recentsearches', (req, res) => {
+            res.send('recent');
         });
     return app;
 };

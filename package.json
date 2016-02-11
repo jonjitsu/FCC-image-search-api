@@ -8,8 +8,8 @@
     "dev": "nodemon src/index.js --exec babel-node --presets es2015,stage-2",
     "clean": "rm -rf dist",
     "build": "npm run clean && mkdir -p dist && babel src -d dist",
-    "test": "mocha --compilers js:babel-register",
-    "test:watch": "mocha --compilers js:babel-register --watch"
+    "test": "mocha --recursive --compilers js:babel-register",
+    "test:watch": "fsmonitor -s '+src/*.js' '+test/*.js' npm test"
   },
   "author": "Jonathan Willis",
   "license": "",
@@ -19,6 +19,7 @@
     "babel-preset-stage-2": "^6.3.13",
     "babel-register": "^6.3.13",
     "chai": "^3.4.1",
+    "fsmonitor": "^0.2.4",
     "mocha": "^2.3.4",
     "node-inspector": "^0.12.5",
     "nodemon": "^1.8.1",
@@ -29,6 +30,7 @@
     "500px": "^0.5.1",
     "configuror": "^0.1.2",
     "express": "^4.13.4",
-    "lodash": "^4.3.0"
+    "lodash": "^4.3.0",
+    "mongodb": "^2.1.7"
   }
 }

@@ -7,9 +7,10 @@ const TRACKING_COLLECTION = 'tracking_stats',
                 store = require('./mongo-wrapper')(config),
 
                 track = (term, cb) => {
-                    store.withDb(db => {
-                        db
-                            .collection(TRACKING_COLLECTION)
+                    if(cb===undefined) cb = function() {};
+
+                    store.collection(TRACKING_COLLECTION, collection => {
+                        collection
                             .findAndModify(
                                 { term: term },
                                 [],
@@ -24,12 +25,26 @@ const TRACKING_COLLECTION = 'tracking_stats',
 
 
                 get = (term, cb) => {
-                    store.withDb(db => {
-                        db
-                            .collection(TRACKING_COLLECTION)
+                    store.collection(TRACKING_COLLECTION, collection => {
+                        collection
                             .findOne({ term: term }, (err, stat) => {
                                 if(err) throw err;
                                 else cb(stat);
+                            });
+                    });
+                },
+
+                lastX = (x, cb) => {
+                    if( typeof x==='function' ) { cb = x; x=10; }
+
+                    store.collection(TRACKING_COLLECTION, collection => {
+                        collection
+                            .find({}, { _id:0, term:1, last:1, count:1 })
+                            .sort({last:-1})
+                            .limit(x)
+                            .toArray((err, data) => {
+                                if(err) throw err;
+                                cb(data);
                             });
                     });
                 }
@@ -37,7 +52,8 @@ const TRACKING_COLLECTION = 'tracking_stats',
 
           return {
               track: track,
-              get: get
+              get: get,
+              last: lastX
           };
       };
 

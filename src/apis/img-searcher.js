@@ -1,10 +1,20 @@
 import ImgSearcher from '../img-searcher';
 
+
 module.exports = (app, config) => {
+    const stats = require('../stats')(config),
+
+          formatDate = ts => {
+              return new Date(ts).toString();
+          };
+
     app
         .get(/^\/imagesearch\/(.*)/, (req, res)=>{
             let term = req.params[0],
                 searcher = ImgSearcher(config);
+
+            stats
+                .track(term);
 
             searcher
                 .searchTerm(term, { page: req.query.offset })
@@ -18,7 +28,12 @@ module.exports = (app, config) => {
         })
 
         .get('/recentsearches', (req, res) => {
-            res.send('recent');
+            stats.last(data=>{
+                data.forEach(stat => {
+                    stat.last = formatDate(stat.last);
+                });
+                res.json(data);
+            });
         });
     return app;
 };

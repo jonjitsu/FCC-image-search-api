@@ -6,7 +6,15 @@ const config = require('configuror')({env:'test'}),
       stats = statsService(config);
 
 describe('stats', () => {
-    let db;
+    let db,
+        clearCollection = cb => {
+            db
+                .collection(statsService.COLLECTION)
+                .deleteMany({}, (err, results) => {
+                    if(err) throw error;
+                    cb();
+                });
+        };
 
 
     it('can track searchTerms', (done) => {
@@ -30,16 +38,13 @@ describe('stats', () => {
             done();
         });
     });
-    after(()=>{
-        db.close();
+    after((done)=>{
+        clearCollection(()=>{
+            db.close();
+            done();
+        });
     });
     afterEach((done)=>{
-        db
-            .collection(statsService.COLLECTION)
-            .deleteMany({}, (err, results) => {
-                if(err) throw error;
-                done();
-            });
+        clearCollection(done);
     });
-
 });

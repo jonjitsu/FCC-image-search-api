@@ -24,9 +24,15 @@ module.exports = config => {
                       });
                   } else cb(db);
               };
-          })();
+          })(),
+    withCollection = (collection, cb) => {
+        withDb(db=>{
+            cb(db.collection(collection));
+        });
+    };
 
     return {
-        withDb: withDb
+        db: withDb,
+        collection: withCollection
     };
 };

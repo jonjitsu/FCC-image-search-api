@@ -24,7 +24,6 @@ module.exports = (app, config) => {
                 error=>{
                     res.send('Internal error @TODO fix this up');
                 });
-          
         })
 
         .get('/recentsearches', (req, res) => {

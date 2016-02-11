@@ -13,7 +13,7 @@ module.exports = config => {
 
     // Setup api
     require('./apis/status')(app);
-    // require('./apis/img-searcher')(app, config);
+    require('./apis/img-searcher')(app, config);
     require('./apis/notfound')(app);
 
     return app;

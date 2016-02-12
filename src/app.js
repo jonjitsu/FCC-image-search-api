@@ -7,9 +7,10 @@ module.exports = config => {
 
     app
     // Setup middlewares
-        .use(require('./middlewares/json-beautifier.js'))
+        .use(require('./middlewares/json-beautifier'))
+        .use(require('./middlewares/easy-renderer'))
         .get('/', (req, res) => {
-            res.send('@TODO put instructions here');
+            res.render('index');
         });
 
 
